@@ -1,0 +1,73 @@
+#!/bin/bash
+## cl.sh for cl.sh in /home/renoux_f//projets/shell-script
+## 
+## Made by fabian renoux
+## Login   <renoux_f@epitech.net>
+## 
+## Started on  Sat Nov 13 18:10:45 2010 fabian renoux
+## Last update Thu Mar 17 11:32:53 2011 thomas wilgenbus
+
+clear
+message='###\|Initialization of the sequence of cleaning|/###'
+message2='Invalid Parameter'
+echo -e "\033[34m\033[01m$message\n\033[00m\033[00m"
+pwd
+ls --color=auto
+read -p 'Enter the desired option: ' var
+var1="exec"
+var2="o"
+var3="#"
+var4="~"
+var5="/"
+var6="all"
+var7="help"
+
+if [ "$var" = "$var7" ]
+then
+echo -e '                    \033[31m\033[01m\/*USER MANUAL*\/\033[00m\033[00m
+If you want to execute file everywhere in your unix system, create an alias in your ~/.tcshrc file :
+     ex: alias cl "\033[32mpath_file/cl\033[00m"
+
+	Syntax : cl "\033[34mparameter/cl\033[00m"
+
+	 \033[35mValid Parameters :\033[00m
+                \033[32m"o"\033[00m    => delete all .o (OBJ) files like test.o.
+		\033[32m"exec"\033[00m => delete specified executable file like "test" (binaries).
+		\033[33m"~"\033[00m    => delete all ~ files like "test.c~" (equivalent to the command 'clean'".
+		\033[33m"#"\033[00m    => delete all # files like "test.c#" or "#test.c#".
+		\033[33m"/"\033[00m    => delete all # and ~ files like previous examples.
+		\033[31m"all"\033[00m  => delete all #, ~, .o, exec files like previous examples.
+		\033[31m"help"\033[00m => Display Help =D.'
+
+elif [ "$var" = "$var1" ]
+then
+read -p 'Enter the name of the executable you want to delete: ' exec
+	rm -v $exec
+elif [ "$var" = "$var2" ]
+then
+    find . -name "*.o" -print -delete
+echo -e '\033[31m\033[05m##removed all .o file##\033[00m\033[00m'
+elif [ "$var" = "$var3" ]
+then
+    find . -name "*#" -print -delete
+echo -e '\033[31m\033[05m##removed all # file##\033[00m\033[00m'
+elif [ "$var" = "$var4" ]
+then
+    find . -name "*~" -print -delete
+echo -e '\033[31m\033[05m##removed all ~ file##\033[00m\033[00m'
+elif [ "$var" = "$var5" ]
+then
+    find . -name "*~" -print -delete
+    find . -name "*#" -print -delete
+echo -e '\033[31m\033[05m##removed all ~ and # file##\033[00m\033[00m'
+elif [ "$var" = "$var6" ]
+then
+read -p 'Enter the name of the executable you want to delete: ' exec
+	rm -v $exec
+	find . -name "*~" -print -delete
+	find . -name "*.o" -print -delete
+	find . -name "*#" -print -delete
+echo -e '\033[31m\033[05m##removed all useless file##\033[00m\033[00m'
+else
+    echo -e "\033[34m\033[01m##$message2##\033[00m\033[00m"
+fi
